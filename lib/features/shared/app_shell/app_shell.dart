@@ -1,3 +1,4 @@
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/contributions_page.dart';
 import 'package:flutter/material.dart';
 // bottom_navigation.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,7 @@ class AppShell extends StatelessWidget {
   static final List<Widget> _pages = [
     const HomePage(),
     NewsPage(),
-    Center(
-      child: Text('data 1'),
-    ),
+    ContributionsPage(),
     Center(
       child: Text('data 2'),
     ),
@@ -36,8 +35,8 @@ class AppShell extends StatelessWidget {
             ),
             bottomNavigationBar: NavigationBarTheme(
               data: NavigationBarThemeData(
-                labelTextStyle: WidgetStateProperty.resolveWith(
-                    (Set<WidgetState> states) {
+                labelTextStyle:
+                    WidgetStateProperty.resolveWith((Set<WidgetState> states) {
                   if (states.contains(WidgetState.selected)) {
                     return const TextStyle(
                         color:
