@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/photo_contribution.dart';
 import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +71,11 @@ class ContributionsPage extends StatelessWidget {
                               label: 'Submit a\nPhoto',
                               backgroundColor: const Color(0xFFE5FFE5),
                               iconColor: const Color(0xFF22C55E),
+                              onPressed: () => Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return PhotoContribution();
+                                }
+                              )),
                             ),
                             _buildOptionCard(
                               context: context,
