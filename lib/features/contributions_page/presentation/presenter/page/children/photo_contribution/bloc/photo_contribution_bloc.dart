@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:fireguard_bo/core/helpers/camera_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -12,7 +14,14 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
     on<SelectGalleryPhoto>(_onSelectPhoto);
     on<ClearSelectedPhoto>(_onClearSelectedPhoto);
     on<SubmitPhoto>(_onSubmitPhoto);
+
+    on<InitializeCamera>(_onInitializeCamera);
+    on<TakePhoto>(_onTakePhoto);
+    on<CloseCamera>(_onCloseCamera);
   }
+
+  final _cameraHelper = CameraHelper();
+
 
   Future<void> _onLoadGalleryPhotos(
     LoadGalleryPhotos event,
@@ -102,5 +111,57 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
     } catch (error) {
       emit(PhotoContributionFailure(error.toString()));
     }
+  }
+
+   Future<void> _onInitializeCamera(
+    InitializeCamera event,
+    Emitter<PhotoContributionState> emit,
+  ) async {
+    try {
+      emit(PhotoContributionCameraInitializing());
+      
+      await _cameraHelper.initialize();
+      
+      if (_cameraHelper.isInitialized) {
+        emit(PhotoContributionCameraReady(_cameraHelper.controller!));
+      } else {
+        emit(const PhotoContributionFailure('Failed to initialize camera'));
+      }
+    } catch (error) {
+      emit(PhotoContributionFailure(error.toString()));
+    }
+  }
+
+  Future<void> _onTakePhoto(
+    TakePhoto event,
+    Emitter<PhotoContributionState> emit,
+  ) async {
+    try {
+      emit(PhotoContributionLoading());
+      
+      final photoPath = await _cameraHelper.takePhoto();
+      
+      if (photoPath != null) {
+        emit(PhotoContributionPhotoTaken(photoPath));
+      } else {
+        emit(const PhotoContributionFailure('Failed to take photo'));
+      }
+    } catch (error) {
+      emit(PhotoContributionFailure(error.toString()));
+    }
+  }
+
+  Future<void> _onCloseCamera(
+    CloseCamera event,
+    Emitter<PhotoContributionState> emit,
+  ) async {
+    _cameraHelper.dispose();
+    emit(PhotoContributionInitial());
+  }
+
+  @override
+  Future<void> close() {
+    _cameraHelper.dispose();
+    return super.close();
   }
 }

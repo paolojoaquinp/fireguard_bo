@@ -44,3 +44,23 @@ final class PhotoContributionSuccess extends PhotoContributionState {
   @override
   List<Object> get props => [photos, if (selectedPhoto != null) selectedPhoto!];
 }
+
+final class PhotoContributionCameraInitializing extends PhotoContributionState {}
+
+class PhotoContributionCameraReady extends PhotoContributionState {
+  final CameraController controller;
+
+  const PhotoContributionCameraReady(this.controller);
+
+  @override
+  List<Object> get props => [controller];
+}
+
+final class PhotoContributionPhotoTaken extends PhotoContributionState {
+  final String photoPath;
+
+  const PhotoContributionPhotoTaken(this.photoPath);
+
+  @override
+  List<Object> get props => [photoPath];
+}

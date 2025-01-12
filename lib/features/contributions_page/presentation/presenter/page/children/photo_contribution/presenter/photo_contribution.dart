@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/bloc/photo_contribution_bloc.dart';
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/camera_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -28,6 +29,14 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PhotoContributionBloc, PhotoContributionState>(
       builder: (context, state) {
+        if (state is PhotoContributionCameraInitializing) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is PhotoContributionCameraReady) {
+          return CameraView(controller: state.controller);
+        }
         if (state is PhotoContributionInitial) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -47,6 +56,14 @@ class _Body extends StatelessWidget {
         }
         if (state is PhotoContributionFailure) {
           return Center(child: Text(state.error));
+        }
+        if (state is PhotoContributionPhotoTaken) {
+          return Center(
+            child: SizedBox(
+              width: MediaQuery.sizeOf(context).width * 0.5,
+              child: Image.file(File(state.photoPath)),
+            ),
+          );
         }
         if (state is PhotoContributionSuccess) {
           return SafeArea(
@@ -132,19 +149,27 @@ class _Body extends StatelessWidget {
                       crossAxisSpacing: 8,
                       mainAxisSpacing: 8,
                     ),
-                    itemCount: state.photos.length + 1, // Número de imágenes + botón de cámara
+                    itemCount: state.photos.length +
+                        1, // Número de imágenes + botón de cámara
                     itemBuilder: (context, index) {
                       if (index == 0) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
-                              size: 24,
+                        return GestureDetector(
+                          onTap: () {
+                            context
+                                .read<PhotoContributionBloc>()
+                                .add(InitializeCamera());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                                size: 24,
+                              ),
                             ),
                           ),
                         );
@@ -152,10 +177,12 @@ class _Body extends StatelessWidget {
                       final AssetEntity elem = state.photos[index - 1];
                       return FutureBuilder<Uint8List?>(
                         future: elem.thumbnailDataWithSize(
-                          const ThumbnailSize(200, 200), // Tamaño de la miniatura
+                          const ThumbnailSize(
+                              200, 200), // Tamaño de la miniatura
                         ),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );

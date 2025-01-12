@@ -30,3 +30,9 @@ final class SubmitPhoto extends PhotoContributionEvent {
   @override
   List<Object> get props => [photo];
 }
+
+final class InitializeCamera extends PhotoContributionEvent {}
+
+final class TakePhoto extends PhotoContributionEvent {}
+
+final class CloseCamera extends PhotoContributionEvent {}
