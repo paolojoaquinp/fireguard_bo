@@ -58,36 +58,42 @@ class ContributionsPage extends StatelessWidget {
                           alignment: WrapAlignment.start,
                           children: [
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.local_fire_department,
                               label: 'Report a\nFire',
                               backgroundColor: const Color(0xFFFFE5E5),
                               iconColor: const Color(0xFFFF4545),
                             ),
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.camera_alt,
                               label: 'Submit a\nPhoto',
                               backgroundColor: const Color(0xFFE5FFE5),
                               iconColor: const Color(0xFF22C55E),
                             ),
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.thunderstorm,
                               label: 'Weather\nConditions',
                               backgroundColor: const Color(0xFFE5E5E5),
                               iconColor: const Color(0xFF666666),
                             ),
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.warning,
                               label: 'Hazards',
                               backgroundColor: const Color(0xFFFFF5E5),
                               iconColor: const Color(0xFFFFA500),
                             ),
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.directions_bus,
                               label: 'Road\nClosure',
                               backgroundColor: const Color(0xFFE5F5FF),
                               iconColor: const Color(0xFF3B82F6),
                             ),
                             _buildOptionCard(
+                              context: context,
                               icon: Icons.newspaper,
                               label: 'Make\na Publish',
                               backgroundColor: const Color.fromARGB(255, 242, 229, 255),
@@ -125,11 +131,12 @@ class ContributionsPage extends StatelessWidget {
     required Color backgroundColor,
     required Color iconColor,
     VoidCallback? onPressed,
+    required BuildContext context,
   }) {
     return GestureDetector(
       onTap: onPressed ,
       child: Container(
-        width: 160,
+        width: MediaQuery.sizeOf(context).width * 0.4,
         height: 160,
         decoration: BoxDecoration(
           color: backgroundColor,

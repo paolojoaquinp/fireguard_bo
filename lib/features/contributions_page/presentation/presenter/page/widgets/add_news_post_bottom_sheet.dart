@@ -9,7 +9,7 @@ class AddNewsPostBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
-      heightFactor: 0.75,
+      heightFactor: 0.85,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
