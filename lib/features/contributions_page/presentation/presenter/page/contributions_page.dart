@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class ContributionsPage extends StatelessWidget {
@@ -89,6 +92,18 @@ class ContributionsPage extends StatelessWidget {
                               label: 'Make\na Publish',
                               backgroundColor: const Color.fromARGB(255, 242, 229, 255),
                               iconColor: const Color.fromARGB(255, 134, 59, 246),
+                              onPressed: () {
+                                showModalBottomSheet<void>(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  barrierColor: Colors.transparent,
+                                  builder: (context) {
+                                    return BackdropFilter(
+                                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                                      child: const AddNewsPostBottomSheet(),
+                                    );
+                                  });
+                              }
                             ),
                           ],
                         ),
@@ -109,34 +124,38 @@ class ContributionsPage extends StatelessWidget {
     required String label,
     required Color backgroundColor,
     required Color iconColor,
+    VoidCallback? onPressed,
   }) {
-    return Container(
-      width: 160,
-      height: 160,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 48,
-            color: iconColor,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-              height: 1.2,
+    return GestureDetector(
+      onTap: onPressed ,
+      child: Container(
+        width: 160,
+        height: 160,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 48,
+              color: iconColor,
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+                height: 1.2,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
