@@ -49,3 +49,15 @@ app.*.map.json
 
 android/gradle.local.properties
 !android/gradle.local.properties.template
+
+
+# Firebase Configuration files
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+firebase.json
+
+# Android build related
+android/app/google-services.json
+android/.gradle
+android/key.properties
