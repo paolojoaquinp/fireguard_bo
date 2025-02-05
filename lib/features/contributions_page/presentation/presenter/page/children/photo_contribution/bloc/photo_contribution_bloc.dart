@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:fireguard_bo/core/helpers/camera_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +9,8 @@ import 'package:photo_manager/photo_manager.dart';
 part 'photo_contribution_event.dart';
 part 'photo_contribution_state.dart';
 
-class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributionState> {
+class PhotoContributionBloc
+    extends Bloc<PhotoContributionEvent, PhotoContributionState> {
   PhotoContributionBloc() : super(PhotoContributionInitial()) {
     on<LoadGalleryPhotos>(_onLoadGalleryPhotos);
     on<RequestGalleryPermission>(_onRequestPermission);
@@ -21,7 +24,6 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
   }
 
   final _cameraHelper = CameraHelper();
-
 
   Future<void> _onLoadGalleryPhotos(
     LoadGalleryPhotos event,
@@ -61,7 +63,7 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
             AndroidPermission(type: RequestType.image, mediaLocation: true),
       ),
     );
-    
+
     if (ps.isAuth) {
       add(LoadGalleryPhotos());
     } else {
@@ -73,9 +75,18 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
     SelectGalleryPhoto event,
     Emitter<PhotoContributionState> emit,
   ) async {
-    if (state is PhotoContributionSuccess) {
-      final currentState = state as PhotoContributionSuccess;
-      emit(currentState.copyWith(selectedPhoto: event.photo));
+    try {
+      final AssetEntity photo = event.photo;
+       final File? photoFile = await photo.file;
+      if (photoFile == null) {
+        emit(const PhotoContributionFailure('No se pudo obtener la foto'));
+        return;
+      }
+      final String photoPath = photoFile.path;
+
+      emit(PhotoContributionPhotoPicked(photoPath));
+    } catch (error) {
+      emit(PhotoContributionFailure('Error al seleccionar la foto: ${error.toString()}'));
     }
   }
 
@@ -95,13 +106,13 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
   ) async {
     try {
       emit(PhotoContributionLoading());
-      
+
       final file = await event.photo.file;
       if (file != null) {
         // Aquí implementarías la lógica para subir la foto
         // Por ejemplo:
         // await photoRepository.uploadPhoto(file);
-        
+
         // Una vez subida, podrías volver al estado de éxito
         if (state is PhotoContributionSuccess) {
           final currentState = state as PhotoContributionSuccess;
@@ -113,15 +124,15 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
     }
   }
 
-   Future<void> _onInitializeCamera(
+  Future<void> _onInitializeCamera(
     InitializeCamera event,
     Emitter<PhotoContributionState> emit,
   ) async {
     try {
       emit(PhotoContributionCameraInitializing());
-      
+
       await _cameraHelper.initialize();
-      
+
       if (_cameraHelper.isInitialized) {
         emit(PhotoContributionCameraReady(_cameraHelper.controller!));
       } else {
@@ -138,11 +149,11 @@ class PhotoContributionBloc extends Bloc<PhotoContributionEvent, PhotoContributi
   ) async {
     try {
       emit(PhotoContributionLoading());
-      
+
       final photoPath = await _cameraHelper.takePhoto();
-      
+
       if (photoPath != null) {
-        emit(PhotoContributionPhotoTaken(photoPath));
+        emit(PhotoContributionPhotoPicked(photoPath));
       } else {
         emit(const PhotoContributionFailure('Failed to take photo'));
       }

@@ -40,11 +40,11 @@ class AppShell extends StatelessWidget {
                   if (states.contains(WidgetState.selected)) {
                     return const TextStyle(
                         color:
-                            Colors.white); // Color del texto cuando está activo
+                            Colors.white,); // Color del texto cuando está activo
                   }
                   return const TextStyle(
                       color:
-                          Colors.grey); // Color del texto cuando está inactivo
+                          Colors.grey,); // Color del texto cuando está inactivo
                 }),
               ),
               child: NavigationBar(

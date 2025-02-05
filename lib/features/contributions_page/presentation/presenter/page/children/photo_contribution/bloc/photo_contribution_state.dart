@@ -56,10 +56,10 @@ class PhotoContributionCameraReady extends PhotoContributionState {
   List<Object> get props => [controller];
 }
 
-final class PhotoContributionPhotoTaken extends PhotoContributionState {
+final class PhotoContributionPhotoPicked extends PhotoContributionState {
   final String photoPath;
 
-  const PhotoContributionPhotoTaken(this.photoPath);
+  const PhotoContributionPhotoPicked(this.photoPath);
 
   @override
   List<Object> get props => [photoPath];
