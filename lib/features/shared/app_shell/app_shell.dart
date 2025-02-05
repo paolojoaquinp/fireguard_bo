@@ -12,12 +12,12 @@ class AppShell extends StatelessWidget {
 
   static final List<Widget> _pages = [
     const HomePage(),
-    NewsPage(),
-    ContributionsPage(),
-    Center(
+    const NewsPage(),
+    const ContributionsPage(),
+    const Center(
       child: Text('data 2'),
     ),
-    Center(
+    const Center(
       child: Text('data 3'),
     ),
   ];

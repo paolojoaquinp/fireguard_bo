@@ -7,7 +7,7 @@ part 'map_page_event.dart';
 part 'map_page_state.dart';
 
 class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
-  MapPageBloc() : super(MapPageInitial()) {
+  MapPageBloc() : super(const MapPageInitial()) {
     on<MapPageEvent>((event, emit) {});
     on<LoadUserLocation>(_onLoadUserLocation);
     on<UpdateUserLocation>(_onUpdateUserLocation);
@@ -33,8 +33,8 @@ class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
 
       if (permission == LocationPermission.deniedForever) {
         emit(const MapError(
-          'Location permissions are permanently denied, we cannot request permissions.'
-        ));
+          'Location permissions are permanently denied, we cannot request permissions.',
+        ),);
         return;
       }
 

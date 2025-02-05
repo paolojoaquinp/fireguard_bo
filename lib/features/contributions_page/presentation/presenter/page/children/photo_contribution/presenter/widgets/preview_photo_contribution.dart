@@ -17,7 +17,7 @@ class PreviewPhotoContribution extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text('Preview camera'),
+            const Text('Preview camera'),
             SizedBox(
               width: MediaQuery.sizeOf(context).width * 0.5,
               child: Image.file(File(photoPath)),

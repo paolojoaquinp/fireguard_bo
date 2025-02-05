@@ -73,7 +73,7 @@ class ContributionsPage extends StatelessWidget {
                               iconColor: const Color(0xFF22C55E),
                               onPressed: () => Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return PhotoContribution();
+                                  return const PhotoContribution();
                                 },
                               ),),
                             ),

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page/bloc/map_page_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +16,7 @@ class MapPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Mapbox Demo'),
         ),
-        body: _Body(),
+        body: const _Body(),
       ),
     );
   }
@@ -73,7 +71,7 @@ class _Body extends StatelessWidget {
                       ),
                     ),
                     image: imageData,
-                    iconSize: 3.0);
+                    iconSize: 3.0,);
 
                 // Agregar la anotación al mapa
                 await pointAnnotationManager.create(pointAnnotationOptions);
