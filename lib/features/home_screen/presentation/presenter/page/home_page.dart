@@ -1,4 +1,4 @@
-import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page/map_page.dart';
 import 'package:flutter/material.dart';
 
 
