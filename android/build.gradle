@@ -16,3 +16,14 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('gradle.local.properties')
+
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def mapboxDownloadsToken = localProperties.getProperty('MAPBOX_DOWNLOADS_TOKEN')

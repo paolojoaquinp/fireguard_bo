@@ -41,3 +41,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.env
+
+/ios/Flutter/Debug.xcconfig
+/ios/Flutter/Release.xcconfig
+
+android/gradle.local.properties
+!android/gradle.local.properties.template
