@@ -74,8 +74,8 @@ class ContributionsPage extends StatelessWidget {
                               onPressed: () => Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
                                   return PhotoContribution();
-                                }
-                              )),
+                                },
+                              ),),
                             ),
                             _buildOptionCard(
                               context: context,
@@ -114,8 +114,8 @@ class ContributionsPage extends StatelessWidget {
                                       filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                                       child: const AddNewsPostBottomSheet(),
                                     );
-                                  });
-                              }
+                                  },);
+                              },
                             ),
                           ],
                         ),
