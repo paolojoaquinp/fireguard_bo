@@ -20,18 +20,22 @@ class MapLoading extends MapPageState {
 
 class MapLocationLoaded extends MapPageState {
   final Position position;
-  
-  const MapLocationLoaded({required this.position});
-  
+  final List<Incident> incidents;
+
+  const MapLocationLoaded({
+    required this.position,
+    required this.incidents,
+  });
+
   @override
-  List<Object?> get props => [position];
+  List<Object?> get props => [position, incidents];
 }
 
 class MapError extends MapPageState {
   final String message;
-  
+
   const MapError(this.message);
-  
+
   @override
   List<Object?> get props => [message];
 }
