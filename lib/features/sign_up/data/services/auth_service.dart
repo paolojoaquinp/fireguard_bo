@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireguard_bo/core/failures/auth_failures.dart';
 import 'package:fireguard_bo/core/result.dart';
 import 'package:fireguard_bo/core/typedefs.dart';
-import 'package:fireguard_bo/features/sign_in/domain/entities/app_user_entity.dart';
-import 'package:fireguard_bo/features/sign_in/domain/repositories/auth_respository.dart';
+import 'package:fireguard_bo/features/sign_up/domain/entities/app_user_entity.dart';
+import 'package:fireguard_bo/features/sign_up/domain/repositories/auth_respository.dart';
 
 class FirebaseAuthAdapter implements AuthRepository {
   const FirebaseAuthAdapter(this.client);

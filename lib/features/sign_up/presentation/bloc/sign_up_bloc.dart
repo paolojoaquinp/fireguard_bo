@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fireguard_bo/core/result.dart';
-import 'package:fireguard_bo/features/sign_in/data/services/user_service.dart';
-import 'package:fireguard_bo/features/sign_in/domain/entities/app_user_entity.dart';
-import 'package:fireguard_bo/features/sign_in/domain/repositories/auth_respository.dart';
+import 'package:fireguard_bo/features/sign_up/data/services/user_service.dart';
+import 'package:fireguard_bo/features/sign_up/domain/entities/app_user_entity.dart';
+import 'package:fireguard_bo/features/sign_up/domain/repositories/auth_respository.dart';
 import 'package:flutter/material.dart';
 
 part 'sign_up_event.dart';

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireguard_bo/core/helpers/validators/form_validators.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
-import 'package:fireguard_bo/features/sign_in/data/services/auth_service.dart';
-import 'package:fireguard_bo/features/sign_in/data/services/user_service.dart';
-import 'package:fireguard_bo/features/sign_in/presentation/bloc/sign_up_bloc.dart';
+import 'package:fireguard_bo/features/sign_up/data/services/auth_service.dart';
+import 'package:fireguard_bo/features/sign_up/data/services/user_service.dart';
+import 'package:fireguard_bo/features/sign_up/presentation/bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
