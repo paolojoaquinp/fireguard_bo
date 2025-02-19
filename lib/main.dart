@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
+import 'package:fireguard_bo/features/sign_in/presentation/page/sign_up_screen.dart';
 import 'package:fireguard_bo/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -14,7 +15,7 @@ Future<void> main() async {
   );
   runApp(const MyApp());
 }
-
+   
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const AppShell(),
+      // home: const AppShell(),
+      home: SignUpScreen(),
     );
   }
 }
