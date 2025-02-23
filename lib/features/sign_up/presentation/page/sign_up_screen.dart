@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireguard_bo/core/helpers/validators/form_validators.dart';
+import 'package:fireguard_bo/core/mobile_core_auth/user_service_auth.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
+import 'package:fireguard_bo/features/shared/widgets/custom_rich_text.dart';
+import 'package:fireguard_bo/features/sign_in/presentation/page/sign_in_screen.dart';
 import 'package:fireguard_bo/features/sign_up/data/services/auth_service.dart';
 import 'package:fireguard_bo/features/sign_up/data/services/user_service.dart';
 import 'package:fireguard_bo/features/sign_up/presentation/bloc/sign_up_bloc.dart';
@@ -27,10 +30,23 @@ class SignUpScreen extends StatelessWidget {
       child: BlocConsumer<SignUpBloc, SignUpState>(
         listener: (context, state) {
           if (state is SignUpSuccessState) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => AppShell()));
+            final userService = UserServiceAuth(FirebaseAuth.instance);
+            if (userService.logged) {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => AppShell()));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Algo salio mal al iniciar sesion'),
+                ),
+              );
+            }
           } else if (state is SignUpErrorState) {
             // Show error dialog
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Hubo algun error al crear usuario!')),
+            );
           }
         },
         builder: (context, state) {
@@ -58,7 +74,6 @@ class _Body extends StatelessWidget {
   String userName;
   String password;
   String email;
-
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +155,7 @@ class _Body extends StatelessWidget {
                                       SignUpSubmittedEvent(
                                         userName: userName,
                                         email: email,
-                                        password: password, 
+                                        password: password,
                                       ),
                                     );
                               }
@@ -148,24 +163,10 @@ class _Body extends StatelessWidget {
                             child: const Text('Sign Up'),
                           ),
                         const SizedBox(height: 56),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: 'Already have an Account?\n',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Sign In',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                            ],
-                          ),
+                        CustomRichText(
+                          text: 'Already have an Account?',
+                          secondaryText: 'Sign In',
+                          onTap: () => Navigator.pushNamed(context, SignInScreen.route),
                         ),
                       ],
                     ),
