@@ -10,6 +10,8 @@ import 'package:fireguard_bo/features/home_screen/presentation/presenter/page/ho
 class AppShell extends StatelessWidget {
   const AppShell({super.key});
 
+  static String route = '/pages';
+
   static final List<Widget> _pages = [
     const HomePage(),
     const NewsPage(),

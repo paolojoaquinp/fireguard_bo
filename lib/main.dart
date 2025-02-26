@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
+import 'package:fireguard_bo/features/sign_in/presentation/page/sign_in_screen.dart';
 import 'package:fireguard_bo/features/sign_up/presentation/page/sign_up_screen.dart';
 import 'package:fireguard_bo/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const AppShell(),
-      home: SignUpScreen(),
+      home: SignInScreen(),
+      routes: {
+        SignUpScreen.route: (_) => SignUpScreen(),
+        SignInScreen.route: (_) => SignInScreen(),
+        AppShell.route: (_) => AppShell()
+      },
     );
   }
 }
