@@ -17,12 +17,7 @@ class MapPage extends StatelessWidget {
         incidentRepository: IncidentService(FirebaseFirestore.instance),
       )..add(LoadUserLocation()),
       lazy: false,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Mapa de incendios'),
-        ),
-        body: const MapPageBody(),
-      ),
+      child: const MapPageBody(),
     );
   }
 }
