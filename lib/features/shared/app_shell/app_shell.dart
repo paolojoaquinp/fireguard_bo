@@ -5,13 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fireguard_bo/core/constants/app_strings.dart';
 import 'package:fireguard_bo/features/news_screen/presentation/presenter/page/news_page.dart';
 import 'package:fireguard_bo/features/shared/app_shell/bloc/app_shell_bloc.dart';
-import 'package:fireguard_bo/features/home_screen/presentation/presenter/page/home_page.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/presenter/page/home_screen.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key});
 
+  static const String route = '/pages';
+
   static final List<Widget> _pages = [
-    const HomePage(),
+    const HomeScreen(),
     const NewsPage(),
     const ContributionsPage(),
     const Center(
