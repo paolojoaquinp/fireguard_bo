@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<SignUpBloc>(
       create: (context) => SignUpBloc(
-        authRepo: FirebaseAuthAdapter(FirebaseAuth.instance),
+        authRepo: FirebaseAuthService(FirebaseAuth.instance),
         userService: UserService(FirebaseFirestore.instance),
       ),
       child: BlocConsumer<SignUpBloc, SignUpState>(

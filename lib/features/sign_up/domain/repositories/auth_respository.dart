@@ -9,4 +9,8 @@ abstract interface class AuthRepository {
   });
 
   bool get logged;
+
+  Future<void> logout();
+
+  String get currentUserId;
 }

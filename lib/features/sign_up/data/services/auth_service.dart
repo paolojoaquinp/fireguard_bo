@@ -5,8 +5,8 @@ import 'package:fireguard_bo/core/typedefs.dart';
 import 'package:fireguard_bo/features/sign_up/domain/entities/app_user_entity.dart';
 import 'package:fireguard_bo/features/sign_up/domain/repositories/auth_respository.dart';
 
-class FirebaseAuthAdapter implements AuthRepository {
-  const FirebaseAuthAdapter(this.client);
+class FirebaseAuthService implements AuthRepository {
+  const FirebaseAuthService(this.client);
   final FirebaseAuth client;
 
   @override
@@ -43,5 +43,12 @@ class FirebaseAuthAdapter implements AuthRepository {
     }
   }
 
+  @override
   bool get logged => client.currentUser != null;
+
+  @override
+  Future<void> logout() => client.signOut();
+
+  @override
+  String get currentUserId => client.currentUser!.uid;
 }

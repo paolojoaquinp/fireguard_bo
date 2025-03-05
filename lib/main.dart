@@ -1,4 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fireguard_bo/core/common/pages/splash_screen.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/presenter/page/home_screen.dart';
+import 'package:fireguard_bo/features/profile/presentation/page/profile_screen.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
 import 'package:fireguard_bo/features/sign_in/presentation/page/sign_in_screen.dart';
 import 'package:fireguard_bo/features/sign_up/presentation/page/sign_up_screen.dart';
@@ -28,12 +31,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      // home: const AppShell(),
-      home: SignInScreen(),
       routes: {
+        SplashScreen.route: (_) => const SplashScreen(),
         SignUpScreen.route: (_) => SignUpScreen(),
-        SignInScreen.route: (_) => SignInScreen(),
-        AppShell.route: (_) => AppShell()
+        SignInScreen.route: (_) => const SignInScreen(),
+        HomeScreen.route: (_) => const HomeScreen(),
+        ProfileScreen.route: (_) => const ProfileScreen(),
+        AppShell.route: (_) => const AppShell()
       },
     );
   }
