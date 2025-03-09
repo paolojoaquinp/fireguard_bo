@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/photo_contribution.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_post_bottom_sheet.dart';
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_post_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class ContributionsPage extends StatelessWidget {
@@ -71,11 +72,14 @@ class ContributionsPage extends StatelessWidget {
                               label: 'Submit a\nPhoto',
                               backgroundColor: const Color(0xFFE5FFE5),
                               iconColor: const Color(0xFF22C55E),
-                              onPressed: () => Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return const PhotoContribution();
-                                },
-                              ),),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const PhotoContribution();
+                                  },
+                                ),
+                              ),
                             ),
                             _buildOptionCard(
                               context: context,
@@ -102,8 +106,10 @@ class ContributionsPage extends StatelessWidget {
                               context: context,
                               icon: Icons.newspaper,
                               label: 'Make\na Publish',
-                              backgroundColor: const Color.fromARGB(255, 242, 229, 255),
-                              iconColor: const Color.fromARGB(255, 134, 59, 246),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 242, 229, 255),
+                              iconColor:
+                                  const Color.fromARGB(255, 134, 59, 246),
                               onPressed: () {
                                 showModalBottomSheet<void>(
                                   context: context,
@@ -111,10 +117,15 @@ class ContributionsPage extends StatelessWidget {
                                   barrierColor: Colors.transparent,
                                   builder: (context) {
                                     return BackdropFilter(
-                                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                                      child: const AddNewsPostBottomSheet(),
+                                      filter: ImageFilter.blur(
+                                          sigmaX: 12, sigmaY: 12),
+                                      child: AddNewsBottomSheet(
+                                        latitude: 0,
+                                        longitude: 0,
+                                      ),
                                     );
-                                  },);
+                                  },
+                                );
                               },
                             ),
                           ],
@@ -140,7 +151,7 @@ class ContributionsPage extends StatelessWidget {
     required BuildContext context,
   }) {
     return GestureDetector(
-      onTap: onPressed ,
+      onTap: onPressed,
       child: Container(
         width: MediaQuery.sizeOf(context).width * 0.4,
         height: 160,
