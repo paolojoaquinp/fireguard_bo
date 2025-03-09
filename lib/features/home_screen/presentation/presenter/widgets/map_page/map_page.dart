@@ -15,8 +15,7 @@ class MapPage extends StatelessWidget {
     return BlocProvider<MapPageBloc>(
       create: (context) => MapPageBloc(
         incidentRepository: IncidentService(FirebaseFirestore.instance),
-      )..add(LoadUserLocation()),
-      lazy: false,
+      )..add(const LoadUserLocation()),
       child: const MapPageBody(),
     );
   }
@@ -52,7 +51,7 @@ class _MapPageBodyState extends State<MapPageBody> {
   void _showPopupAtPoint(BuildContext context, Point point) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (_) {
         return Dialog(
           insetPadding: const EdgeInsets.symmetric(
             horizontal: 80.0,
@@ -101,6 +100,7 @@ class _MapPageBodyState extends State<MapPageBody> {
               MapWidget(
                 key: const ValueKey("mapWidget"),
                 cameraOptions: camera,
+                styleUri: MapboxStyles.MAPBOX_STREETS,
                 onMapCreated: (MapboxMap mapBoxMap) async {
                   pointAnnotationManager = await mapBoxMap.annotations
                       .createPointAnnotationManager();
@@ -123,35 +123,25 @@ class _MapPageBodyState extends State<MapPageBody> {
                     iconSize: 3.0,
                   );
                   await pointAnnotationManager?.create(currentLocationMarker);
-
+                    final ByteData incidentBytes = await rootBundle.load('assets/icons/marker-fire-icon.png');
+                    final Uint8List incidentIcon = incidentBytes.buffer.asUint8List();
                   // Si hay incidentes, agregar sus markers
-                  if (incidents.isNotEmpty) {
-                    // Cargar el icono para los incidentes (puedes usar un icono diferente)
-                    final ByteData incidentBytes =
-                        await rootBundle.load('assets/icons/marker-fire-icon.png');
-                    final Uint8List incidentIcon =
-                        incidentBytes.buffer.asUint8List();
-
-                    // Crear un marker por cada incidente
-                    final incidentMarkers = incidents
-                        .map(
-                          (incident) => PointAnnotationOptions(
-                            geometry: Point(
-                              coordinates: Position(
-                                incident.location.long,
-                                incident.location.lat,
-                              ),
-                            ),
-                            image: incidentIcon,
-                            iconSize:
-                                2.5, // Ligeramente más pequeño que el marcador de ubicación
+                  incidents.listen((incidentList) async {
+                    final incidentMarkers = incidentList.map(
+                      (incident) => PointAnnotationOptions(
+                        geometry: Point(
+                          coordinates: Position(
+                            incident.location.long,
+                            incident.location.lat,
                           ),
-                        )
-                        .toList();
-
-                    // Agregar todos los markers de incidentes
+                        ),
+                        image: incidentIcon,
+                        iconSize: 2.5,
+                      ),
+                    ).toList();
                     await pointAnnotationManager?.createMulti(incidentMarkers);
-                  }
+
+                  });
                 },
                 onTapListener: (MapContentGestureContext coordinate) {
                   final point = Point(

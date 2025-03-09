@@ -7,6 +7,8 @@ import 'package:fireguard_bo/features/home_screen/data/models/incident_model.dar
 typedef Json = Map<String, dynamic>;
 
 typedef FutureResult<T> = Future<Result<T, Failure>>;
+typedef StreamResult<T> = Result<Stream<T>, Failure>;
+
 typedef FutureAuthResult<T, E> = Future<Result<T, E>>;
 // typedef IncidentData = ({AppUser user, Incident? friendships});
 typedef IncidentData = ({IncidentModel? incidents});

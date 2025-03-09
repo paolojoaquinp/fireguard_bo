@@ -20,7 +20,7 @@ class MapLoading extends MapPageState {
 
 class MapLocationLoaded extends MapPageState {
   final Position position;
-  final List<IncidentModel> incidents;
+  final Stream<List<IncidentModel>> incidents;
 
   const MapLocationLoaded({
     required this.position,

@@ -1,6 +1,9 @@
 import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/contributions_page.dart';
+import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page/bloc/map_page_bloc.dart';
 
 class PopupMenu extends StatelessWidget {
   final Point point;
@@ -26,7 +29,7 @@ class PopupMenu extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: onClose,
                 icon: const Icon(
                   Icons.close,
                 ),
@@ -56,13 +59,15 @@ class PopupMenu extends StatelessWidget {
                     icon: Icons.add_circle_outline,
                     label: 'Contribute',
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ContributionsPage(),
+                      Navigator.pop(context); // Close the popup first
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => AddNewsBottomSheet(
+                          latitude: point.coordinates.lat.toDouble(),
+                          longitude: point.coordinates.lng.toDouble(),
                         ),
                       );
-                      // onClose();
                     },
                   ),
                   _MenuItem(

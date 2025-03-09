@@ -32,12 +32,32 @@ class IncidentService implements IncidentRepository {
       return Err(Failure(message: e.toString()));
     }
   }
-  
+
   @override
-  FutureResult<void> createIncident(IncidentModel incident) async {
+  FutureResult<IncidentModel> createIncident(IncidentModel incident) async {
     try {
-      await _incidentCollection.add(incident.toJson());
-      return Success(null);
+      final result = await _incidentCollection.add(incident.toJson());
+      return Success(
+        incident.copyWith(id: result.id),
+      );
+    } catch (e) {
+      return Err(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  StreamResult<List<IncidentModel>> getIncidentsStream() {
+    try {
+      final snapshots = _incidentCollection
+          .orderBy('created_at', descending: true)
+          .snapshots().map(
+        (event) => event.docs
+            .where((element) => element.exists)
+            .map((e) => e.toIncidentModel())
+            .toList(),
+      );
+
+      return Success(snapshots);
     } catch (e) {
       return Err(Failure(message: e.toString()));
     }

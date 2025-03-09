@@ -3,5 +3,8 @@ import 'package:fireguard_bo/features/home_screen/data/models/incident_model.dar
 
 abstract interface class IncidentRepository {
   FutureResult<List<IncidentModel>> getIncidents();
+  
+  StreamResult<List<IncidentModel>> getIncidentsStream();
+  
   FutureResult<void> createIncident(IncidentModel incident);
 }
