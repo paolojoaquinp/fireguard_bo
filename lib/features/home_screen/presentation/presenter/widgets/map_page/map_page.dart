@@ -138,8 +138,8 @@ class _MapPageBodyState extends State<MapPageBody> {
                           (incident) => PointAnnotationOptions(
                             geometry: Point(
                               coordinates: Position(
-                                incident.location.longitude,
-                                incident.location.latitude,
+                                incident.location.long,
+                                incident.location.lat,
                               ),
                             ),
                             image: incidentIcon,

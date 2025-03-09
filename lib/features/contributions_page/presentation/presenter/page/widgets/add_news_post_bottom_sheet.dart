@@ -120,7 +120,7 @@ class AddNewsPostBottomSheet extends StatelessWidget {
               ),
             ),
           ],
-        ),
+        ), 
       ),
     );
   }

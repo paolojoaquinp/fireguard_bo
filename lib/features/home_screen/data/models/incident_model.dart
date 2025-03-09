@@ -1,0 +1,87 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fireguard_bo/features/home_screen/domain/entities/incident_entity.dart';
+
+class IncidentModel extends IncidentEntity {
+  const IncidentModel({
+    required super.id,
+    required super.reporterId,
+    required super.incidentType,
+    required super.status,
+    required super.severityLevel,
+    required super.location,
+    required super.description,
+    required super.createdAt,
+    required super.updatedAt,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'reporter_id': reporterId,
+      'incident_type': incidentType,
+      'status': status,
+      'severity_level': severityLevel,
+      'location': {
+        'lat': location.lat,
+        'long': location.long,
+      },
+      'description': description,
+      'created_at': Timestamp.fromDate(createdAt),
+      'updated_at': Timestamp.fromDate(updatedAt),
+    };
+  }
+
+  factory IncidentModel.fromJson(String docId, Map<String, dynamic> json) {
+    return IncidentModel(
+      id: docId,
+      reporterId: json['reporter_id'] as String? ?? '',
+      incidentType: json['incident_type'] as String? ?? '',
+      status: json['status'] as String? ?? '',
+      severityLevel: json['severity_level'] as int? ?? 0,
+      location: LocationCoordinates(
+        lat: _getDoubleFromJson(json['location'], 'lat'),
+        long: _getDoubleFromJson(json['location'], 'long'),
+      ),
+      description: json['description'] as String? ?? '',
+      createdAt: _getDateTimeFromTimestamp(json['created_at']),
+      updatedAt: _getDateTimeFromTimestamp(json['updated_at']),
+    );
+  }
+
+  static double _getDoubleFromJson(dynamic locationData, String key) {
+    if (locationData == null) return 0.0;
+    if (locationData is! Map<String, dynamic>) return 0.0;
+    return (locationData[key] as num?)?.toDouble() ?? 0.0;
+  }
+
+  static DateTime _getDateTimeFromTimestamp(dynamic timestamp) {
+    if (timestamp == null) return DateTime.now();
+    if (timestamp is Timestamp) {
+      return timestamp.toDate();
+    }
+    return DateTime.now();
+  }
+
+  IncidentModel copyWith({
+    String? id,
+    String? reporterId,
+    String? incidentType,
+    String? status,
+    int? severityLevel,
+    LocationCoordinates? location,
+    String? description,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return IncidentModel(
+      id: id ?? this.id,
+      reporterId: reporterId ?? this.reporterId,
+      incidentType: incidentType ?? this.incidentType,
+      status: status ?? this.status,
+      severityLevel: severityLevel ?? this.severityLevel,
+      location: location ?? this.location,
+      description: description ?? this.description,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+}

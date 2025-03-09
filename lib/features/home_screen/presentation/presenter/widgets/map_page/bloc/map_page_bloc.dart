@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fireguard_bo/core/result.dart';
-import 'package:fireguard_bo/features/home_screen/domain/entities/incident.dart';
+import 'package:fireguard_bo/features/home_screen/data/models/incident_model.dart';
 import 'package:fireguard_bo/features/home_screen/domain/repositories/incident_repository.dart';
 import 'package:geolocator/geolocator.dart';
 
