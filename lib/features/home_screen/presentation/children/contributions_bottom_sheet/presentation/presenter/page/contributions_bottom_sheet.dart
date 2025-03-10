@@ -1,10 +1,10 @@
 import 'dart:ui';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/photo_contribution.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/page/photo_contribution.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/contributions_bottom_sheet/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
-class ContributionsPage extends StatelessWidget {
-  const ContributionsPage({super.key});
+class ContributionsBottomSheet extends StatelessWidget {
+  const ContributionsBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {

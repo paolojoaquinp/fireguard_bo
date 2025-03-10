@@ -1,7 +1,7 @@
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/bloc/photo_contribution_bloc.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/widgets/loaded_gallery_photo_contribution.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/widgets/preview_photo_contribution.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/presenter/widgets/camera_view.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/bloc/photo_contribution_bloc.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/page/widgets/loaded_gallery_photo_contribution.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/page/widgets/preview_photo_contribution.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/page/widgets/camera_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

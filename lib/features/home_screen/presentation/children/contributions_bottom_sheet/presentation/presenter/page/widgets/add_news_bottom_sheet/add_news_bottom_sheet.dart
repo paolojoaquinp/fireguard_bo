@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/bloc/add_news_bottom_sheet_bloc.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/contributions_bottom_sheet/presentation/presenter/page/widgets/add_news_bottom_sheet/bloc/add_news_bottom_sheet_bloc.dart';
 import 'package:fireguard_bo/features/home_screen/data/services/incident_service.dart';
 import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page/bloc/map_page_bloc.dart';
 import 'package:flutter/material.dart';

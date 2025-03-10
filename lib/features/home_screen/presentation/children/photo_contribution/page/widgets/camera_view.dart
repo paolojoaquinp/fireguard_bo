@@ -1,5 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/children/photo_contribution/bloc/photo_contribution_bloc.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/photo_contribution/bloc/photo_contribution_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

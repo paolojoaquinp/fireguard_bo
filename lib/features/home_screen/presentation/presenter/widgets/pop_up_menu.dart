@@ -1,5 +1,5 @@
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/contributions_page.dart';
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/contributions_bottom_sheet/presentation/presenter/page/contributions_bottom_sheet.dart';
+import 'package:fireguard_bo/features/home_screen/presentation/children/contributions_bottom_sheet/presentation/presenter/page/widgets/add_news_bottom_sheet/add_news_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
@@ -63,7 +63,7 @@ class PopupMenu extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        builder: (context) => const ContributionsPage(),
+                        builder: (context) => const ContributionsBottomSheet(),
                       );
                       // showModalBottomSheet(
                       //   context: context,
