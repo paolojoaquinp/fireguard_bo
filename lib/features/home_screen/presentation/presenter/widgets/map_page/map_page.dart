@@ -32,43 +32,6 @@ class _MapPageBodyState extends State<MapPageBody> {
   MapboxMap? mapboxMap;
   PointAnnotationManager? pointAnnotationManager;
 
-  Future<void> _createMarkerAtPoint(Point point) async {
-    if (pointAnnotationManager == null) return;
-
-    final ByteData bytes =
-        await rootBundle.load('assets/icons/custom-icon.png');
-    final Uint8List imageData = bytes.buffer.asUint8List();
-
-    final pointAnnotationOptions = PointAnnotationOptions(
-      geometry: point,
-      image: imageData,
-      iconSize: 3.0,
-    );
-
-    await pointAnnotationManager?.create(pointAnnotationOptions);
-  }
-
-  void _showPopupAtPoint(BuildContext context, Point point) {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return Dialog(
-          insetPadding: const EdgeInsets.symmetric(
-            horizontal: 80.0,
-          ), // Ajusta el espacio horizontal
-          child: PopupMenu(
-            point: point,
-            onClose: () => Navigator.pop(context),
-            onSubmit: () {
-              _createMarkerAtPoint(point);
-              Navigator.pop(context);
-            },
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MapPageBloc, MapPageState>(
@@ -105,6 +68,9 @@ class _MapPageBodyState extends State<MapPageBody> {
                   pointAnnotationManager = await mapBoxMap.annotations
                       .createPointAnnotationManager();
 
+                  pointAnnotationManager?.addOnPointAnnotationClickListener(
+                    AnnotationClickListener(context: context),
+                  );
                   // Cargar el icono para la ubicación actual
                   final ByteData bytes =
                       await rootBundle.load('assets/icons/custom-icon.png');
@@ -123,24 +89,27 @@ class _MapPageBodyState extends State<MapPageBody> {
                     iconSize: 3.0,
                   );
                   await pointAnnotationManager?.create(currentLocationMarker);
-                    final ByteData incidentBytes = await rootBundle.load('assets/icons/marker-fire-icon.png');
-                    final Uint8List incidentIcon = incidentBytes.buffer.asUint8List();
+                  final ByteData incidentBytes = await rootBundle
+                      .load('assets/icons/marker-fire-icon.png');
+                  final Uint8List incidentIcon =
+                      incidentBytes.buffer.asUint8List();
                   // Si hay incidentes, agregar sus markers
                   incidents.listen((incidentList) async {
-                    final incidentMarkers = incidentList.map(
-                      (incident) => PointAnnotationOptions(
-                        geometry: Point(
-                          coordinates: Position(
-                            incident.location.long,
-                            incident.location.lat,
+                    final incidentMarkers = incidentList
+                        .map(
+                          (incident) => PointAnnotationOptions(
+                            geometry: Point(
+                              coordinates: Position(
+                                incident.location.long,
+                                incident.location.lat,
+                              ),
+                            ),
+                            image: incidentIcon,
+                            iconSize: 2.5,
                           ),
-                        ),
-                        image: incidentIcon,
-                        iconSize: 2.5,
-                      ),
-                    ).toList();
+                        )
+                        .toList();
                     await pointAnnotationManager?.createMulti(incidentMarkers);
-
                   });
                 },
                 onTapListener: (MapContentGestureContext coordinate) {
@@ -152,7 +121,7 @@ class _MapPageBodyState extends State<MapPageBody> {
                   );
                   print("LNG ${coordinate.point.coordinates.lng}");
                   print("LAT ${coordinate.point.coordinates.lat}");
-                  _showPopupAtPoint(context, point);
+                  // _showPopupAtPoint(context, point);
                 },
               ),
               Positioned(
@@ -172,4 +141,54 @@ class _MapPageBodyState extends State<MapPageBody> {
       },
     );
   }
+}
+
+class AnnotationClickListener extends OnPointAnnotationClickListener {
+  AnnotationClickListener({
+    required this.context,
+  });
+  final BuildContext context;
+
+  @override
+  void onPointAnnotationClick(PointAnnotation annotation) {
+    _showPopupAtPoint(context, annotation.geometry);
+    print("onAnnotationClick, id: ${annotation.id}");
+  }
+
+  void _showPopupAtPoint(BuildContext context, Point point) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return Dialog(
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 80.0,
+          ),
+          child: PopupMenu(
+            point: point,
+            onClose: () => Navigator.pop(context),
+            onSubmit: () {
+              // _createMarkerAtPoint(point);
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  // Future<void> _createMarkerAtPoint(Point point) async {
+  //   if (pointAnnotationManager == null) return;
+
+  //   final ByteData bytes =
+  //       await rootBundle.load('assets/icons/custom-icon.png');
+  //   final Uint8List imageData = bytes.buffer.asUint8List();
+
+  //   final pointAnnotationOptions = PointAnnotationOptions(
+  //     geometry: point,
+  //     image: imageData,
+  //     iconSize: 3.0,
+  //   );
+
+  //   await pointAnnotationManager?.create(pointAnnotationOptions);
+  // }
 }
