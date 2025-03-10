@@ -63,11 +63,16 @@ class PopupMenu extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        builder: (context) => AddNewsBottomSheet(
-                          latitude: point.coordinates.lat.toDouble(),
-                          longitude: point.coordinates.lng.toDouble(),
-                        ),
+                        builder: (context) => const ContributionsPage(),
                       );
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   isScrollControlled: true,
+                      //   builder: (context) => AddNewsBottomSheet(
+                      //     latitude: point.coordinates.lat.toDouble(),
+                      //     longitude: point.coordinates.lng.toDouble(),
+                      //   ),
+                      // );
                     },
                   ),
                   _MenuItem(

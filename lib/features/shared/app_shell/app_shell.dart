@@ -15,7 +15,7 @@ class AppShell extends StatelessWidget {
   static final List<Widget> _pages = [
     const HomeScreen(),
     const NewsPage(),
-    const ContributionsPage(),
+    const Text('Create Incident Page'),
     const Center(
       child: Text('data 2'),
     ),
