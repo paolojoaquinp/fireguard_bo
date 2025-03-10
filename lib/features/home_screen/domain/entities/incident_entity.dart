@@ -9,6 +9,7 @@ class IncidentEntity {
     required this.description,
     required this.createdAt,
     required this.updatedAt,
+    required this.photoUrl,
   });
 
   final String id;
@@ -20,6 +21,7 @@ class IncidentEntity {
   final String description;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String photoUrl;
 }
 
 class LocationCoordinates {

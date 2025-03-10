@@ -28,6 +28,7 @@ extension DocumentSnapshotX on DocumentSnapshot<Json> {
       description: this['description'] as String,
       createdAt: (this['created_at'] as Timestamp).toDate(),
       updatedAt: (this['updated_at'] as Timestamp).toDate(),
+      photoUrl: this['photo_url'] as String,
     );
   }
 }

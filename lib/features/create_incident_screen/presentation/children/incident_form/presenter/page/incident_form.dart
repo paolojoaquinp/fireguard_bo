@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireguard_bo/features/home_screen/presentation/children/contributions_bottom_sheet/presentation/presenter/page/widgets/add_news_bottom_sheet/bloc/add_news_bottom_sheet_bloc.dart';
@@ -6,15 +8,17 @@ import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddNewsBottomSheet extends StatelessWidget {
-  const AddNewsBottomSheet({
+class IncidentForm extends StatelessWidget {
+  const IncidentForm({
     super.key,
     required this.latitude,
     required this.longitude,
+    required this.photoPath,
   });
 
   final double latitude;
   final double longitude;
+  final String photoPath;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,7 @@ class AddNewsBottomSheet extends StatelessWidget {
       child: _Page(
         latitude: latitude,
         longitude: longitude,
+        photoPath: photoPath,
       ),
     );
   }
@@ -41,10 +46,12 @@ class _Page extends StatelessWidget {
   const _Page({
     required this.latitude,
     required this.longitude,
+    required this.photoPath,
   });
 
   final double latitude;
   final double longitude;
+  final String photoPath;
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +70,12 @@ class _Page extends StatelessWidget {
           );
         }
       },
-      child: _Body(
+      child: Scaffold(
+        body: _Body(
         latitude: latitude,
         longitude: longitude,
+          photoPath: photoPath,
+        ),
       ),
     );
   }
@@ -75,10 +85,12 @@ class _Body extends StatefulWidget {
   const _Body({
     required this.latitude,
     required this.longitude,
+    required this.photoPath,
   });
 
   final double latitude;
   final double longitude;
+  final String photoPath;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -118,6 +130,25 @@ class _BodyState extends State<_Body> {
                   'Report Incident',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
+                const SizedBox(height: 16),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.file(
+                      File(widget.photoPath),
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                    initialValue: 'Lat: ${widget.latitude}, Lng: ${widget.longitude}',
+                    decoration: const InputDecoration(
+                      labelText: 'Location',
+                      prefixIcon: Icon(Icons.location_on),
+                    ),
+                    readOnly: true,
+                  ),
                 const SizedBox(height: 16),
                 DropdownButtonFormField<String>(
                   value: _selectedType,
@@ -231,7 +262,7 @@ class _BodyState extends State<_Body> {
                                       latitude: widget.latitude,
                                       longitude: widget.longitude,
                                       description: _descriptionController.text,
-                                      photoPath: '',
+                                      photoPath: widget.photoPath,
                                     ),
                                   );
                             }

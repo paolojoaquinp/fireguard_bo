@@ -148,7 +148,7 @@ class NewsCard extends StatelessWidget {
                 ),
               ],
             ),
-            if (imageUrl != null) ...[
+            if (imageUrl != null || imageUrl!.isNotEmpty) ...[
               const SizedBox(height: 12),
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),

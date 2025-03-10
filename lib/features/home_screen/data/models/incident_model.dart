@@ -12,6 +12,7 @@ class IncidentModel extends IncidentEntity {
     required super.description,
     required super.createdAt,
     required super.updatedAt,
+    required super.photoUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -27,6 +28,7 @@ class IncidentModel extends IncidentEntity {
       'description': description,
       'created_at': Timestamp.fromDate(createdAt),
       'updated_at': Timestamp.fromDate(updatedAt),
+      'photo_url': photoUrl,
     };
   }
 
@@ -44,6 +46,7 @@ class IncidentModel extends IncidentEntity {
       description: json['description'] as String? ?? '',
       createdAt: _getDateTimeFromTimestamp(json['created_at']),
       updatedAt: _getDateTimeFromTimestamp(json['updated_at']),
+      photoUrl: json['photo_url'] as String? ?? '',
     );
   }
 
@@ -71,6 +74,7 @@ class IncidentModel extends IncidentEntity {
     String? description,
     DateTime? createdAt,
     DateTime? updatedAt,
+    String? photoUrl,
   }) {
     return IncidentModel(
       id: id ?? this.id,
@@ -82,6 +86,7 @@ class IncidentModel extends IncidentEntity {
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      photoUrl: photoUrl ?? this.photoUrl,
     );
   }
 }

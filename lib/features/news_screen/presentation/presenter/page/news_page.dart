@@ -44,7 +44,7 @@ class _Page extends StatelessWidget {
                       handle: '@user',
                       location: '${incident.location.lat}, ${incident.location.long}',
                       timeAgo: _getTimeAgo(incident.createdAt),
-                      imageUrl: 'https://picsum.photos/250?image=9',
+                      imageUrl: incident.photoUrl.isNotEmpty ? incident.photoUrl : 'https://picsum.photos/250?image=9',
                       description: incident.description,
                       severityLevel: incident.severityLevel,
                       status: incident.status,

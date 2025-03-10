@@ -6,5 +6,5 @@ abstract interface class IncidentRepository {
   
   StreamResult<List<IncidentModel>> getIncidentsStream();
   
-  FutureResult<void> createIncident(IncidentModel incident);
+  FutureResult<void> createIncident(IncidentModel incident, String? localPhotoPath);
 }

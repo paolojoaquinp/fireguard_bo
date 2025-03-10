@@ -13,6 +13,7 @@ class CreateIncidentEvent extends AddNewsBottomSheetEvent {
     required this.latitude,
     required this.longitude,
     required this.description,
+    required this.photoPath,
   });
 
   final String reporterId;
@@ -22,6 +23,7 @@ class CreateIncidentEvent extends AddNewsBottomSheetEvent {
   final double latitude;
   final double longitude;
   final String description;
+  final String photoPath;
 
   @override
   List<Object?> get props => [
@@ -32,5 +34,6 @@ class CreateIncidentEvent extends AddNewsBottomSheetEvent {
         latitude,
         longitude,
         description,
+        photoPath,
       ];
 }

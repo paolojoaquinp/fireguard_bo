@@ -30,9 +30,10 @@ class AddNewsBottomSheetBloc extends Bloc<AddNewsBottomSheetEvent, AddNewsBottom
           description: event.description,
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
+          photoUrl: '',
         );
 
-        final result = await incidentService.createIncident(incident);
+        final result = await incidentService.createIncident(incident, event.photoPath);
 
         switch (result) {
           case Success():
