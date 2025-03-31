@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fireguard_bo/core/failures/failure.dart';
 import 'package:fireguard_bo/core/result.dart';
-import 'package:fireguard_bo/features/home_screen/domain/entities/incident.dart';
+import 'package:fireguard_bo/core/typedefs.dart';
+import 'package:fireguard_bo/features/home_screen/data/models/incident_model.dart';
 import 'package:fireguard_bo/features/home_screen/domain/repositories/incident_repository.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -21,7 +23,9 @@ class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
   final IncidentRepository incidentRepository;
 
   Future<void> _onLoadUserLocation(
-      LoadUserLocation event, Emitter<MapPageState> emit) async {
+    LoadUserLocation event,
+    Emitter<MapPageState> emit,
+  ) async {
     emit(const MapLoading());
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -30,9 +34,12 @@ class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
         return;
       }
 
-      final incidents = await incidentRepository.getIncidents();
+      // final incidents = await incidentRepository.getIncidents();
+      // final incidents = incidentRepository.getIncidentsStream();
+      final incidents = incidentRepository.getIncidentsStream();
 
       LocationPermission permission = await Geolocator.checkPermission();
+
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
@@ -63,7 +70,8 @@ class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
               incidents: incidents,
             ),
           ),
-        Err(value: final failure) => emit(MapError('Error getting location: ${failure.message}')),
+        Err(value: final failure) =>
+          emit(MapError('Error getting location: ${failure.message}')),
       };
     } catch (e) {
       emit(MapError('Error getting location: $e'));
@@ -79,7 +87,10 @@ class MapPageBloc extends Bloc<MapPageEvent, MapPageState> {
         ),
         // desiredAccuracy: LocationAccuracy.high
       );
-      emit(MapLocationLoaded(position: position, incidents: [],));
+      emit(MapLocationLoaded(
+        position: position,
+        incidents: Stream.value([]),
+      ));
     } catch (e) {
       emit(MapError('Error updating location: $e'));
     }

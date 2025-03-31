@@ -1,6 +1,5 @@
-import 'package:fireguard_bo/features/contributions_page/presentation/presenter/page/contributions_page.dart';
 import 'package:flutter/material.dart';
-// bottom_navigation.dart
+import 'package:fireguard_bo/features/create_incident_screen/presentation/create_incident_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fireguard_bo/core/constants/app_strings.dart';
 import 'package:fireguard_bo/features/news_screen/presentation/presenter/page/news_page.dart';
@@ -15,7 +14,7 @@ class AppShell extends StatelessWidget {
   static final List<Widget> _pages = [
     const HomeScreen(),
     const NewsPage(),
-    const ContributionsPage(),
+    const CreateIncidentScreen(),
     const Center(
       child: Text('data 2'),
     ),

@@ -2,12 +2,25 @@ part of 'map_page_bloc.dart';
 
 sealed class MapPageEvent extends Equatable {
   const MapPageEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
+class LoadUserLocation extends MapPageEvent {
+  const LoadUserLocation();
 
-class LoadUserLocation extends MapPageEvent {}
+  @override
+  List<Object?> get props => [];
+}
 
-class UpdateUserLocation extends MapPageEvent {}
+class UpdateUserLocation extends MapPageEvent {
+  const UpdateUserLocation();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class RefreshIncidents extends MapPageEvent {
+  const RefreshIncidents();
+
+  @override
+  List<Object?> get props => [];
+}
