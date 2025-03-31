@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fireguard_bo/core/result.dart';
 import 'package:fireguard_bo/features/home_screen/data/models/incident_model.dart';
-import 'package:fireguard_bo/features/home_screen/data/services/incident_service.dart';
+import 'package:fireguard_bo/features/home_screen/data/repositories_impl/services/incident_service.dart';
 import 'package:fireguard_bo/features/home_screen/domain/entities/incident_entity.dart';
 
 part 'news_event.dart';
