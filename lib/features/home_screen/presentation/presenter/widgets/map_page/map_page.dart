@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fireguard_bo/features/home_screen/data/services/incident_service.dart';
+import 'package:fireguard_bo/features/home_screen/data/repositories_impl/services/incident_service.dart';
 import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/map_page/bloc/map_page_bloc.dart';
 import 'package:fireguard_bo/features/home_screen/presentation/presenter/widgets/pop_up_menu.dart';
 import 'package:flutter/material.dart';
@@ -95,18 +95,28 @@ class _MapPageBodyState extends State<MapPageBody> {
                       incidentBytes.buffer.asUint8List();
                   // Si hay incidentes, agregar sus markers
                   incidents.listen((incidentList) async {
+                    // Clear any previous incident markers
+                    await pointAnnotationManager?.deleteAll();
+                    // Re-add the current location marker
+                    await pointAnnotationManager?.create(currentLocationMarker);
+                    
                     final incidentMarkers = incidentList
                         .map(
-                          (incident) => PointAnnotationOptions(
-                            geometry: Point(
-                              coordinates: Position(
-                                incident.location.long,
-                                incident.location.lat,
+                          (incident) {
+                            final marker = PointAnnotationOptions(
+                              geometry: Point(
+                                coordinates: Position(
+                                  incident.location.long,
+                                  incident.location.lat,
+                                ),
                               ),
-                            ),
-                            image: incidentIcon,
-                            iconSize: 2.5,
-                          ),
+                              image: incidentIcon,
+                              iconSize: 2.5,
+                              textField: incident.id,
+                              textOpacity: 0,
+                            );
+                            return marker;
+                          },
                         )
                         .toList();
                     await pointAnnotationManager?.createMulti(incidentMarkers);
@@ -151,11 +161,11 @@ class AnnotationClickListener extends OnPointAnnotationClickListener {
 
   @override
   void onPointAnnotationClick(PointAnnotation annotation) {
-    _showPopupAtPoint(context, annotation.geometry);
+    _showPopupAtPoint(context, annotation.geometry, annotation.textField);
     print("onAnnotationClick, id: ${annotation.id}");
   }
 
-  void _showPopupAtPoint(BuildContext context, Point point) {
+  void _showPopupAtPoint(BuildContext context, Point point, String? incidentId) {
     showDialog(
       context: context,
       builder: (_) {
@@ -165,9 +175,9 @@ class AnnotationClickListener extends OnPointAnnotationClickListener {
           ),
           child: PopupMenu(
             point: point,
+            incidentId: incidentId,
             onClose: () => Navigator.pop(context),
             onSubmit: () {
-              // _createMarkerAtPoint(point);
               Navigator.pop(context);
             },
           ),
