@@ -17,7 +17,12 @@ extension DocumentSnapshotX on DocumentSnapshot<Json> {
   IncidentModel toIncidentModel() {
     return IncidentModel(
       id: id,
-      reporterId: this['reporter_id'] as String,
+      reporter: Reporter(
+        idReporter: this['reporter']['id'] as String,
+        username: this['reporter']['username'] as String,
+        name: this['reporter']['name'] as String,
+        photoUrl: this['reporter']['photo_url'] as String,
+      ),
       incidentType: this['incident_type'] as String,
       status: this['status'] as String,
       location: LocationCoordinates(

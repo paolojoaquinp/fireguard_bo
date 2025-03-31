@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class NewsCard extends StatelessWidget {
   const NewsCard({
     super.key,
+    required this.author,
     required this.username,
-    required this.handle,
     required this.location,
     required this.timeAgo,
     required this.isFireReport,
@@ -14,8 +14,8 @@ class NewsCard extends StatelessWidget {
     required this.status,
   });
 
+  final String author;
   final String username;
-  final String handle;
   final String location;
   final String timeAgo;
   final bool isFireReport;
@@ -55,7 +55,8 @@ class NewsCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            username,
+                            // username,
+                            author,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -63,7 +64,7 @@ class NewsCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            handle,
+                            username,
                             style: TextStyle(
                               color: Colors.grey.shade600,
                               fontSize: 14,

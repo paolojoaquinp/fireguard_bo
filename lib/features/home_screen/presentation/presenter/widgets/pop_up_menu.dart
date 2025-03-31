@@ -57,7 +57,7 @@ class PopupMenu extends StatelessWidget {
                 children: [
                   _MenuItem(
                     icon: Icons.add_circle_outline,
-                    label: 'Contribute',
+                    label: 'Contribuir',
                     onTap: () {
                       Navigator.pop(context); // Close the popup first
                       showModalBottomSheet(
@@ -77,7 +77,7 @@ class PopupMenu extends StatelessWidget {
                   ),
                   _MenuItem(
                     icon: Icons.person_outline,
-                    label: 'Follow',
+                    label: 'Seguir',
                     onTap: () {
                       // Acción follow
                       onClose();

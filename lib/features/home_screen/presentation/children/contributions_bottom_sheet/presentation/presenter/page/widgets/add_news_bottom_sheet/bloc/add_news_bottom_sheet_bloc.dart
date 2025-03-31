@@ -19,7 +19,15 @@ class AddNewsBottomSheetBloc extends Bloc<AddNewsBottomSheetEvent, AddNewsBottom
 
         final incident = IncidentModel(
           id: '',  // Firebase will generate this
-          reporterId: event.reporterId,
+          reporter: Reporter(
+            idReporter: event.reporterId,
+            // username: event.reporterUsername ?? '',
+            username: '',
+            // name: event.reporterName ?? '',
+            name: '',
+            // photoUrl: event.reporterPhotoUrl ?? '',
+            photoUrl: '',
+          ),
           incidentType: event.incidentType,
           status: event.status,
           severityLevel: event.severityLevel,

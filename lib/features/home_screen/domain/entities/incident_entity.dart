@@ -1,7 +1,7 @@
 class IncidentEntity {
   const IncidentEntity({
     required this.id,
-    required this.reporterId,
+    required this.reporter,
     required this.incidentType,
     required this.status,
     required this.severityLevel,
@@ -13,7 +13,7 @@ class IncidentEntity {
   });
 
   final String id;
-  final String reporterId;
+  final Reporter reporter;
   final String incidentType;
   final String status;
   final int severityLevel;
@@ -32,4 +32,19 @@ class LocationCoordinates {
 
   final double lat;
   final double long;
+}
+
+
+class Reporter {
+  const Reporter({
+    required this.idReporter,
+    required this.username,
+    required this.name,
+    required this.photoUrl,
+  });
+
+  final String idReporter;
+  final String username;
+  final String name;
+  final String photoUrl;
 }

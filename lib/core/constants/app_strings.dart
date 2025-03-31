@@ -1,7 +1,7 @@
 class AppStrings {
-  static String home = 'Home';
-  static String news = 'News';
-  static String contribute = 'Contribute';
-  static String follow = 'Follow';
-  static String updates = 'Updates';
+  static String home = 'Inicio';
+  static String news = 'Noticias';
+  static String contribute = 'Contribuir';
+  static String follow = 'Seguir';
+  static String updates = 'Alertas';
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fireguard_bo/core/common/pages/splash_screen.dart';
+import 'package:fireguard_bo/core/config/service_locator.dart';
 import 'package:fireguard_bo/features/home_screen/presentation/presenter/page/home_screen.dart';
 import 'package:fireguard_bo/features/profile/presentation/page/profile_screen.dart';
 import 'package:fireguard_bo/features/shared/app_shell/app_shell.dart';
@@ -12,7 +13,7 @@ import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: "assets/.env");
-  
+  // serviceLocatorInit();
   MapboxOptions.setAccessToken(dotenv.get('MAPBOX_ACCESS_TOKEN'));
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         SignInScreen.route: (_) => const SignInScreen(),
         HomeScreen.route: (_) => const HomeScreen(),
         ProfileScreen.route: (_) => const ProfileScreen(),
-        AppShell.route: (_) => const AppShell()
+        AppShell.route: (_) => const AppShell(),
       },
     );
   }

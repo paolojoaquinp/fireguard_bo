@@ -24,7 +24,7 @@ class _Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News Feed'),
+        title: const Text('Noticias'),
       ),
       body: BlocBuilder<NewsBloc, NewsState>(
         builder: (context, state) {
@@ -40,8 +40,8 @@ class _Page extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: NewsCard(
-                      username: incident.reporterId ?? 'N/A',
-                      handle: '@user',
+                      author: incident.reporter.name,
+                      username: '@${incident.reporter.username}',
                       location: '${incident.location.lat}, ${incident.location.long}',
                       timeAgo: _getTimeAgo(incident.createdAt),
                       imageUrl: incident.photoUrl.isNotEmpty ? incident.photoUrl : 'https://picsum.photos/250?image=9',

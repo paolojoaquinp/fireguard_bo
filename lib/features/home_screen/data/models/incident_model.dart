@@ -4,7 +4,7 @@ import 'package:fireguard_bo/features/home_screen/domain/entities/incident_entit
 class IncidentModel extends IncidentEntity {
   const IncidentModel({
     required super.id,
-    required super.reporterId,
+    required super.reporter,
     required super.incidentType,
     required super.status,
     required super.severityLevel,
@@ -17,7 +17,12 @@ class IncidentModel extends IncidentEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'reporter_id': reporterId,
+      'reporter': {
+        'id': reporter.idReporter,
+        'username': reporter.username,
+        'name': reporter.name,
+        'photo_url': reporter.photoUrl,
+      },
       'incident_type': incidentType,
       'status': status,
       'severity_level': severityLevel,
@@ -35,7 +40,12 @@ class IncidentModel extends IncidentEntity {
   factory IncidentModel.fromJson(String docId, Map<String, dynamic> json) {
     return IncidentModel(
       id: docId,
-      reporterId: json['reporter_id'] as String? ?? '',
+      reporter: Reporter(
+        idReporter: json['reporter_id'] as String? ?? '',
+        username: json['username'] as String? ?? '',
+        name: json['name'] as String? ?? '',
+        photoUrl: json['photo_url'] as String? ?? '',
+      ),
       incidentType: json['incident_type'] as String? ?? '',
       status: json['status'] as String? ?? '',
       severityLevel: json['severity_level'] as int? ?? 0,
@@ -66,7 +76,7 @@ class IncidentModel extends IncidentEntity {
 
   IncidentModel copyWith({
     String? id,
-    String? reporterId,
+    Reporter? reporter,
     String? incidentType,
     String? status,
     int? severityLevel,
@@ -75,10 +85,11 @@ class IncidentModel extends IncidentEntity {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? photoUrl,
+
   }) {
     return IncidentModel(
       id: id ?? this.id,
-      reporterId: reporterId ?? this.reporterId,
+      reporter: reporter ?? this.reporter,
       incidentType: incidentType ?? this.incidentType,
       status: status ?? this.status,
       severityLevel: severityLevel ?? this.severityLevel,

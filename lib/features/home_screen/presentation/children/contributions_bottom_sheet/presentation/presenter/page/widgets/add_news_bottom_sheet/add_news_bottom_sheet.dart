@@ -18,6 +18,7 @@ class AddNewsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: refactor to just create an update of incident
     return MultiBlocProvider(
       providers: [
         BlocProvider<AddNewsBottomSheetBloc>(
