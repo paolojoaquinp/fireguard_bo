@@ -33,7 +33,7 @@ class LoadedGalleryPhotoContribution extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 const Text(
-                  'Update the Map',
+                  'Actualizar el Mapa',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -71,7 +71,7 @@ class LoadedGalleryPhotoContribution extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Submit a\nPhoto',
+                    'Enviar una\nImagen',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,

@@ -30,7 +30,7 @@ class ContributionsBottomSheet extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 const Text(
-                  'Update the Map',
+                  'Actualizar el Mapa',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,

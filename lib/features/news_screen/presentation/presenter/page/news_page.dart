@@ -68,13 +68,13 @@ class _Page extends StatelessWidget {
     final difference = now.difference(dateTime);
 
     if (difference.inDays > 0) {
-      return '${difference.inDays}d ago';
+      return 'hace ${difference.inDays}d';
     } else if (difference.inHours > 0) {
-      return '${difference.inHours}h ago';
+      return 'hace ${difference.inHours}h';
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes}m ago';
+      return 'hace ${difference.inMinutes}m';
     } else {
-      return 'just now';
+      return 'justo ahora';
     }
   }
 }
